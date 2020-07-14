@@ -213,7 +213,8 @@ function EEAClient(web3, chainId) {
             data: `0x${tx.data.toString("hex")}`,
             privateFrom: `0x${tx.privateFrom.toString("hex")}`,
             privacyGroupId: `0x${tx.privacyGroupId.toString("hex")}`,
-            restriction: `0x${tx.restriction.toString("hex")}`
+            restriction: `0x${tx.restriction.toString("hex")}`,
+            chainId
           };
         } catch (error) {
           throw new Error(`Failed to create the transaction Object`);
