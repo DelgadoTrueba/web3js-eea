@@ -25,6 +25,15 @@ const createPrivateEmitterContract = privacyGroupId => {
     privacyGroupId,
     privateKey: besu.node1.privateKey
   };
+  const address = "6ad6F24f1E3f90F75A8794De887ce5bc81E79500";
+  web3.eea
+    .createTransactionObject({ ...contractOptions, address })
+    .then(resul => {
+      console.log("tx object : !!!!!!!!!!!!");
+      console.log(resul);
+      return resul;
+    })
+    .catch(console.error);
   return web3.eea.sendRawTransaction(contractOptions);
 };
 

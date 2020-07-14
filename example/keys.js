@@ -1,33 +1,42 @@
 module.exports = {
   orion: {
     node1: {
-      publicKey: "A1aVtMxLCUHmBVHXoZzzBgPbW/wj5axDpW9X8l91SGo="
+      publicKey: "nLDnChEfKpsrYCwVWFPNAr3xvmWXwmI54V5aDzslFno="
     },
     node2: {
-      publicKey: "Ko2bVqD+nNlNYL5EE7y3IdOnviftjiizpjRt+HTuFBs="
+      publicKey: "W2S5X2cvkhVfHPjzgFLVmbSWbIuzg+Dx4NXpuWN8nX8="
     },
     node3: {
-      publicKey: "k2zXEin4Ip/qBGlRkJejnGWdP9cjkK+DAvKNW31L2C8="
+      publicKey: "UUP54/mfpld/Qy0MOfMTwwzUu9zsbg6CV2FcyRDBdko="
+    },
+    node4: {
+      publicKey: "IIJ9gseguRHQEgA9jvDid4AJBuRDBGPcPfU3SNhtslY="
     }
   },
   besu: {
     node1: {
-      url: "http://localhost:20000",
-      wsUrl: "ws://localhost:20001",
+      url: "http://localhost:8545",
+      wsUrl: "ws://localhost:8546",
       privateKey:
-        "8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63"
+        "424c715463966e93f134ad92f51fe27bc453a214dfabf4503cc333a1d74ce1af"
     },
     node2: {
-      url: "http://localhost:20002",
-      wsUrl: "ws://localhost:20003",
+      url: "http://localhost:9545",
+      wsUrl: "ws://localhost:9546",
       privateKey:
-        "c87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3"
+        "eafd6bfb6ff2bab8267062b14ae46fef92e0b33b6aeaf727494408e0cad30605"
     },
     node3: {
-      url: "http://localhost:20004",
-      wsUrl: "ws://localhost:20005",
+      url: "http://localhost:10545",
+      wsUrl: "ws://localhost:10546",
       privateKey:
-        "ae6ae8e5ccbfb04590405997ee2d52d2b330726137b875053c36d94e974d162f"
+        "7d470e7350e2a51f75b27373f3f015dce8ff1cff2648c199ce0f29615085db13"
+    },
+    node4: {
+      url: "http://localhost:11545",
+      wsUrl: "ws://localhost:10546",
+      privateKey:
+        "7cea371f5647f8a4aa19fdf07119f28a7cded89cdb52907087b41755c88c5b0c"
     }
   }
 };

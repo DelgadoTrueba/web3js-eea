@@ -171,7 +171,7 @@ function EEAClient(web3, chainId) {
    * - options.data
    *
    */
-  const createTransactionObject = (options, method) => {
+  const createTransactionObject = options => {
     if (options.privacyGroupId && options.privateFor) {
       throw Error("privacyGroupId and privateFor are mutually exclusive");
     }
@@ -205,18 +205,18 @@ function EEAClient(web3, chainId) {
 
         try {
           return {
-            nonce: `0x${tx.nonce.toString("hex")}`, 
+            nonce: `0x${tx.nonce.toString("hex")}`,
             gasPrice: `0x${tx.gasPrice.toString("hex")}`,
-            gasLimit: `0x${tx.gasLimit.toString("hex")}`, 
+            gasLimit: `0x${tx.gasLimit.toString("hex")}`,
             to: `0x${tx.to.toString("hex")}`,
             value: `0x${tx.value.toString("hex")}`,
             data: `0x${tx.data.toString("hex")}`,
             privateFrom: `0x${tx.privateFrom.toString("hex")}`,
             privacyGroupId: `0x${tx.privacyGroupId.toString("hex")}`,
-            restriction: `0x${tx.restriction.toString("hex")}`,
-        }
+            restriction: `0x${tx.restriction.toString("hex")}`
+          };
         } catch (error) {
-          throw new Error(`Error  ${method}`);
+          throw new Error(`Failed to create the transaction Object`);
         }
       });
   };
@@ -478,10 +478,6 @@ function EEAClient(web3, chainId) {
    */
   const sendRawTransaction = options => {
     return genericSendRawTransaction(options, "eea_sendRawTransaction");
-  };
-
-  const createTransactionObject = options => {
-    return createTransactionObject(options);
   };
 
   Object.assign(web3.eea, {
