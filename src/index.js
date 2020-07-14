@@ -160,6 +160,68 @@ function EEAClient(web3, chainId) {
   };
 
   /**
+   * Returns the Private Transaction Object
+   * @param options Used to create the private transaction
+   * - options.address
+   * - options.privateFrom
+   * - options.privacyGroupId
+   * - options.privateFor
+   * - options.nonce
+   * - options.to
+   * - options.data
+   *
+   */
+  const createTransactionObject = (options, method) => {
+    if (options.privacyGroupId && options.privateFor) {
+      throw Error("privacyGroupId and privateFor are mutually exclusive");
+    }
+    const tx = new PrivateTransaction();
+    const from = `0x${options.address}`;
+    return web3.priv
+      .getTransactionCount({
+        from,
+        privateFrom: options.privateFrom,
+        privateFor: options.privateFor,
+        privacyGroupId: options.privacyGroupId
+      })
+      .then(transactionCount => {
+        tx.nonce = options.nonce || transactionCount;
+        tx.gasPrice = GAS_PRICE;
+        tx.gasLimit = GAS_LIMIT;
+        tx.to = options.to;
+        tx.value = 0;
+        tx.data = options.data;
+        // eslint-disable-next-line no-underscore-dangle
+        tx._chainId = chainId;
+        tx.privateFrom = options.privateFrom;
+
+        if (options.privateFor) {
+          tx.privateFor = options.privateFor;
+        }
+        if (options.privacyGroupId) {
+          tx.privacyGroupId = options.privacyGroupId;
+        }
+        tx.restriction = "restricted";
+
+        try {
+          return {
+            nonce: `0x${tx.nonce.toString("hex")}`, 
+            gasPrice: `0x${tx.gasPrice.toString("hex")}`,
+            gasLimit: `0x${tx.gasLimit.toString("hex")}`, 
+            to: `0x${tx.to.toString("hex")}`,
+            value: `0x${tx.value.toString("hex")}`,
+            data: `0x${tx.data.toString("hex")}`,
+            privateFrom: `0x${tx.privateFrom.toString("hex")}`,
+            privacyGroupId: `0x${tx.privacyGroupId.toString("hex")}`,
+            restriction: `0x${tx.restriction.toString("hex")}`,
+        }
+        } catch (error) {
+          throw new Error(`Error  ${method}`);
+        }
+      });
+  };
+
+  /**
    * Returns the Private Marker transaction
    * @param {string} txHash The transaction hash
    * @param {int} retries Number of retries to be made to get the private marker transaction receipt
@@ -418,8 +480,13 @@ function EEAClient(web3, chainId) {
     return genericSendRawTransaction(options, "eea_sendRawTransaction");
   };
 
+  const createTransactionObject = options => {
+    return createTransactionObject(options);
+  };
+
   Object.assign(web3.eea, {
-    sendRawTransaction
+    sendRawTransaction,
+    createTransactionObject
   });
 
   // PRIVX ==========
